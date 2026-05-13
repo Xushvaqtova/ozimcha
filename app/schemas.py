@@ -1,33 +1,75 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
+from datetime import datetime
+
+
+# ─── TOKEN SCHEMAS ────────────────────────────
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    id: Optional[str] = None
+
+
+# ─── USER SCHEMAS ─────────────────────────────
+
+class UserCreate(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ─── POST SCHEMAS ─────────────────────────────
 
 class PostBase(BaseModel):
     title: str
     content: str
     published: bool = True
+    rating: Optional[int] = None  # ← YANGI
+
 
 class PostCreate(PostBase):
     pass
 
+
+class PostUpdate(PostBase):
+    pass
+
+
+# owner info inside post response
+class OwnerInfo(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+
+    class Config:
+        from_attributes = True
+
+
 class PostResponse(PostBase):
     id: int
+    created_at: datetime
+    owner_id: Optional[int] = None
+    owner: Optional[OwnerInfo] = None
 
     class Config:
         from_attributes = True
 
-class UserCreate(BaseModel):
-    username: str
-    email: str
-    password: str
 
-class UserResponse(BaseModel):
-    id: int
-    username: str
-    email: str
-
-    class Config:
-        from_attributes = True
+# ─── CATEGORY SCHEMAS ─────────────────────────
 
 class CategorySchema(BaseModel):
     name: str
-    description: str

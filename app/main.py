@@ -1,12 +1,18 @@
-from app.config import settings
 from fastapi import FastAPI
-from app.routers import category, posts  # Ikkala routerni ham chaqiramiz
+from .routers import posts, users, auth
 
-app = FastAPI()
+# ← models.Base.metadata.create_all(bind=engine)  O'CHIRILDI!
 
-app.include_router(category.router, prefix="/categories", tags=["Categories"])
-app.include_router(posts.router) # Posts routerini ham ulash
+app = FastAPI(
+    title="Blog API",
+    description="FastAPI + PostgreSQL + JWT + Alembic",
+    version="4.0.0"
+)
 
-# Printlar faqat tekshirish uchun, keyinchalik o'chirib tashlang
-print(settings.database_url)
-print(settings.secret_key)
+app.include_router(posts.router)
+app.include_router(users.router)
+app.include_router(auth.router)
+
+@app.get("/")
+def root():
+    return {"xabar": "Blog API v4.0 — Alembic bilan!"}

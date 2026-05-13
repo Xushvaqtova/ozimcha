@@ -1,11 +1,15 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     database_url: str
     secret_key: str
     debug: bool = False
+    algorithm: str
+    access_token_expire_minutes: int
 
-    # Yangi uslub (Pydantic V2 uchun):
-    model_config = SettingsConfigDict(env_file=".env")
+    class Config:
+        env_file = ".env"
 
 settings = Settings()
+
+
