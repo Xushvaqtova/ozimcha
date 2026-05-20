@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python cache
 __pycache__/
 *.py[cod]
@@ -23,3 +24,10 @@ alembic/versions/*.pyc
 *.sqlite3
 
 # hello
+=======
+__pycache__/
+*.pyc
+.env
+venv/
+alembic/versions/*.pyc
+>>>>>>> 29d83cc (fix deploy + add gitignore + actions)
