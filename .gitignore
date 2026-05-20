@@ -1,7 +1,25 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
 venv/
 .env
-.idea
-__pycache__/
-*.pyc
-*.pyo
+
+# Alembic (optional)
+alembic/versions/*.pyc
+
+# Logs
+*.log
+
+# OS files
 .DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Database (if local)
+*.sqlite3
+
+# hello
